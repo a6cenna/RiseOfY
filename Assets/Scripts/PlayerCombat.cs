@@ -10,9 +10,15 @@ public class PlayerCombat : MonoBehaviour
 
     public float attackRange = 0.5f;
     public int attackDamage = 20;
-
+    public int maxHealth = 100;
+    int currentHealth;
     public float attackRate = 2f;
     float nextAttackTime = 0f;
+
+    void Start()
+    {
+        currentHealth = maxHealth;
+    }
 
     // Update is called once per frame
     void Update()
@@ -25,6 +31,26 @@ public class PlayerCombat : MonoBehaviour
                 nextAttackTime = Time.time + 1f / attackRate;
             }
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        anim.SetTrigger("Hurt");
+
+        if (currentHealth < -0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        anim.SetBool("isDead", true);
+
+        GetComponent<Rigidbody2D>().simulated = false;
+        this.enabled = false;
     }
 
     void Attack()
