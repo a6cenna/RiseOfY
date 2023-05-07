@@ -16,11 +16,16 @@ public class BossCombat : MonoBehaviour
         pos += transform.right * attackOffset.x;
         pos += transform.up * attackOffset.y;
 
-        Collider2D colInfo = Physics2D.OverlapCircle(pos, attackRange, attackMask);
-        if (colInfo != null)
+        Collider2D[] colInfo = Physics2D.OverlapCircleAll(pos, attackRange, attackMask);
+
+        foreach(Collider2D player in colInfo)
         {
-            colInfo.GetComponent<PlayerCombat>().TakeDamage(damages);
+            if (colInfo != null)
+            {
+                player.GetComponent<playerHealth>().TakeDamage(damages);
+            }
         }
+        
     }
 
 }
