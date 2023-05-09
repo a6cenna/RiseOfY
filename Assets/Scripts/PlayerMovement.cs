@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private float horiontal;
     private float speed = 6.5f;
-    private float jumpingPower = 8f;
+    private float jumpingPower = 8.3f;
     private bool isFacingRight = true;
 
     private bool canDash = true;
@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isDashing;
     private float dashingPower = 10f;
     private float dashingTime = 0.2f;
-    private float dashingCooldown = 1f;
+    private float dashingCooldown = 1.2f;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -27,6 +27,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (anim.GetBool("isDead"))
+        {
+            return;
+        }
         if (isDashing)
         {
             return;
@@ -67,8 +71,8 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("running", false);
         }
-        
-        if (Input.GetKeyDown(KeyCode.L))
+
+        if (Input.GetKeyDown(KeyCode.L) && canDash) 
         {
             StartCoroutine(Dash());
         }
@@ -78,6 +82,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (anim.GetBool("isDead"))
+        {
+            return;
+        }
         if (isDashing)
         {
             return;

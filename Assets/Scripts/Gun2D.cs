@@ -6,6 +6,7 @@ public class Gun2D : MonoBehaviour
 {
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Animator anim;
 
     public float attackRate = 2f;
     float nextAttackTime = 0f;
@@ -13,6 +14,10 @@ public class Gun2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (anim.GetBool("isDead"))
+        {
+            return;
+        }
         if (Time.time >= nextAttackTime)
         {
             if (Input.GetKeyDown(KeyCode.K))

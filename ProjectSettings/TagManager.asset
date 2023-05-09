@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - FirePointB
+  - Spike
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -38,9 +41,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Ground_Back_2
     uniqueID: 4091590443
     locked: 0
@@ -52,6 +52,9 @@ TagManager:
     locked: 0
   - name: Fog_Back_1
     uniqueID: 2580633343
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
   - name: Ground
     uniqueID: 1684665081

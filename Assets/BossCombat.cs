@@ -6,17 +6,18 @@ public class BossCombat : MonoBehaviour
 {
     public int damages = 40;
     public float attackRange = 1f;
-    public LayerMask attackMask;
+    [SerializeField] Transform firePoint;
+    [SerializeField] Transform firePoint1;
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject bulletPrefab2;
+    [SerializeField] private Boss boss;
 
-    public Vector3 attackOffset;
+    public LayerMask attackMask;
 
     public void Attack()
     {
-        Vector3 pos = transform.position;
-        pos += transform.right * attackOffset.x;
-        pos += transform.up * attackOffset.y;
-
-        Collider2D[] colInfo = Physics2D.OverlapCircleAll(pos, attackRange, attackMask);
+        Collider2D[] colInfo = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, attackMask);
 
         foreach(Collider2D player in colInfo)
         {
@@ -28,4 +29,42 @@ public class BossCombat : MonoBehaviour
         
     }
 
+    void Shoot()
+    {
+        boss.LookAtPlayer();
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Debug.Log("Shoot");
+    }
+    void LShoot()
+    {
+        boss.LookAtPlayer();
+        Instantiate(bulletPrefab2, firePoint1.position, firePoint.rotation);
+        Debug.Log("Shoot");
+    }
+    void SpikeSa()
+    {
+        boss.LookAtPlayer();
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spike");
+        foreach(GameObject spike in gameObjects)
+        {
+            spike.GetComponent<Spike>().SpikeS();
+        }
+    }
+
+    void SpikeFa()
+    {
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Spike");
+        foreach (GameObject spike in gameObjects)
+        {
+            spike.GetComponent<Spike>().SpikeF();
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+        {
+            return;
+        }
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
 }

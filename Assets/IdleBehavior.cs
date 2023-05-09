@@ -9,6 +9,11 @@ public class IdleBehavior : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (animator.GetBool("isDead"))
+        {
+            return;
+        }
+
         rand = Random.Range(0, 7);
 
         if (rand == 0 || rand == 1)
@@ -28,6 +33,7 @@ public class IdleBehavior : StateMachineBehaviour
         {
             animator.SetTrigger("Skill");
         }
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

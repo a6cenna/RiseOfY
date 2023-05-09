@@ -17,7 +17,11 @@ public class PlayerCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if(Time.time >= nextAttackTime)
+        if (anim.GetBool("isDead"))
+        {
+            return;
+        }
+        if (Time.time >= nextAttackTime)
         {
             if(Input.GetKeyDown(KeyCode.J))
             {
@@ -32,11 +36,17 @@ public class PlayerCombat : MonoBehaviour
     {
         anim.SetTrigger("isAttacking");
 
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+        Collider2D hitInfo = Physics2D.OverlapCircle(attackPoint.position, attackRange, enemyLayer);
 
-        foreach(Collider2D enemy in hitEnemies)
+        Enemy enemy = hitInfo.GetComponent<Enemy>();
+        if (enemy != null)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            enemy.TakeDamage(attackDamage);
+        }
+        BossHealth player = hitInfo.GetComponent<BossHealth>();
+        if (player != null)
+        {
+            player.TakeDamage(attackDamage);
         }
     }
 
