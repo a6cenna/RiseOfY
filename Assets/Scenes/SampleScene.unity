@@ -4018,7 +4018,7 @@ MonoBehaviour:
     m_Bits: 128
   attackRange: 0.8
   attackDamage: 30
-  attackRate: 2
+  attackRate: 2.5
 --- !u!114 &1809265266
 MonoBehaviour:
   m_ObjectHideFlags: 0
